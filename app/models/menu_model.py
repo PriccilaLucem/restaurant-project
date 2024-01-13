@@ -5,9 +5,14 @@ from app.configs.database import db
 
 @dataclass 
 class Menu(db.Model):
+    id:int
+    product_name:str
+    product_description:str
+    product_price:float
+    
     __tablename__ = 'menu'
 
-    
+
     id = db.Column(db.Integer, primary_key = True)
     product_name = db.Column(db.String(40), nullable=False)
     product_description = db.Column(db.String(200), nullable=True)
