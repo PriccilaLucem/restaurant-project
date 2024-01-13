@@ -17,7 +17,7 @@ class Client(db.Model):
     password_hash = db.Column(db.String(200), nullable=False)    
     
     address_id = db.Column(db.Integer, db.ForeignKey('address.id'))  # Adicionado para a relação many-to-one
-    addresses = db.relationship('Address', backref="address", lazy="dynamic")
+    addresses = db.relationship('Address', backref="address")
 
     valid_keys = ['name', 'email', 'password']
 

@@ -17,4 +17,3 @@ class Address(db.Model):
     city = db.Column(db.String(50))
     state = db.Column(db.String(50))
     zip_code = db.Column(db.String(10))
-    client = db.relationship("clients")
