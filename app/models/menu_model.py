@@ -30,5 +30,4 @@ class Menu(db.Model):
     @staticmethod
     def check_args(**kwargs):
         VALIDATED_ARGS = ['product_name', 'product_description', 'product_price']
-        valid_args = {arg_name: arg_value for arg_name, arg_value in kwargs.items() if arg_name in VALIDATED_ARGS}
-        return valid_args
+        return {arg_name: arg_value for arg_name, arg_value in kwargs.items() if arg_name in VALIDATED_ARGS}
