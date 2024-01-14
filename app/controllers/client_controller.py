@@ -2,8 +2,6 @@ from flask import jsonify, current_app, request
 from app.models.client_model import Client
 from sqlalchemy.exc import IntegrityError
 
-
-
 def get_all_clients_controller():
     return jsonify(Client.query.all())
 
@@ -41,7 +39,7 @@ def patch_client_controller(id):
     if 'email' in data:
         data.pop('email')
     if 'address' in data:
-        ...
+        data.pop('address')
     
     valid_data = Client.validate_keys(**data)
     Client.query.filter_by(id=id).update(valid_data)
