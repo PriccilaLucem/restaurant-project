@@ -1,10 +1,11 @@
 import jwt
 import os
+import ipdb
 
 def is_amd(request):
-    token = request.headers['Authorization'].split(" ")[1]
+    token = request.headers['Authorization'].split(" ")[-1]
     decoded_token = jwt.decode(token, os.environ.get("JWT_KEY"), algorithms=['HS256'])
-    if decoded_token.user is "adm":
+    if decoded_token['type'] is "adm":
         return True
     return False
 
