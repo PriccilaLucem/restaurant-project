@@ -1,6 +1,6 @@
 from flask import jsonify, request, current_app
 from app.models.menu_model import Menu
-from app.controllers import is_amd
+from app.controllers import is_adm
 from jwt.exceptions import InvalidSignatureError
 
 def get_menu_controller():
@@ -14,7 +14,7 @@ def get_by_id_menu_controller(id):
     return jsonify({"error": "Not found"}), 404
 
 def post_menu_controller():
-    if not is_amd(request):
+    if not is_adm(request):
         return {"error": "Unauthorized"},401
     data = request.json
 
@@ -37,7 +37,7 @@ def post_menu_controller():
 
 def delete_menu_controller(id):
     try:
-        if not is_amd(request):
+        if is_adm(request):
             return {"error": "Unauthorized"},401
         item = Menu.query.get(id)
         if item:
@@ -52,7 +52,7 @@ def delete_menu_controller(id):
         return jsonify({"error": "Invalid Token"}),401
 
 def patch_menu_controller(id):
-    if not is_amd(request):
+    if is_adm(request):
         return {"error": "Unauthorized"},401
     data = request.json
     valid_args = Menu.check_args(**data)

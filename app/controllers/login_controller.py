@@ -4,7 +4,6 @@ from  app.models.adm_model import Adm
 import jwt
 from os import environ
 def login_controller():
-
     data = request.json
     
     if 'email' not in data or 'password' not in data:
@@ -21,7 +20,7 @@ def login_controller():
             return jsonify({"error": "Invalid password"}),401
     
     payload = {
-        "name": client.name if client else adm.name,
+        "name": client.name if client else None,
         "email": client.email if client else adm.email,
         "id":  client.id if client else adm.id,
         "type": "user" if client else "adm"
