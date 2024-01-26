@@ -17,7 +17,8 @@ class Menu(db.Model):
     product_name = db.Column(db.String(40), nullable=False)
     product_description = db.Column(db.String(200), nullable=True)
     product_price = db.Column(db.Float, nullable=False)
-    
+    product_quantity = db.Column(db.Integer, default = 0, nullable=False)
+
     @staticmethod
     def validate_args(**kwargs):
         if type(kwargs['product_name']) != str:
@@ -26,8 +27,11 @@ class Menu(db.Model):
             if type(kwargs['product_description']) != str:
                 raise TypeError
         float(kwargs['product_price'])
+        if 'product_quantity' in kwargs:
+            if type(kwargs['product_quantity']) != int:
+                raise TypeError
         
     @staticmethod
     def check_args(**kwargs):
-        VALIDATED_ARGS = ['product_name', 'product_description', 'product_price']
+        VALIDATED_ARGS = ['product_name', 'product_description', 'product_price', 'product_quantity']
         return {arg_name: arg_value for arg_name, arg_value in kwargs.items() if arg_name in VALIDATED_ARGS}

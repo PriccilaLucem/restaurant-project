@@ -7,8 +7,9 @@ def init_app(app:Flask):
     
     from app.models.menu_model import Menu
     from app.models.address_model import Address
-    from app.models.client_model import Client
     from app.models.adm_model import Adm
+    from app.models.client_model import Client
+    from app.models.cart_model import Cart
 
     migrate.init_app(app, app.db)
 

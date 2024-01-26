@@ -6,22 +6,28 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.client_address_table import client_address
 from app.models.address_model import Address
+from app.models.cart_model import Cart
 from typing import List
 from sqlalchemy.orm import Mapped
 from app.exc.AddressAlreadyRegisteredError import AddressAlreadyRegisteredError
-import ipdb
 @dataclass
 class Client(db.Model):
     id: str
     name: str
     email: str
     addresses: Mapped[List[Address]] = field(default_factory=list)
+    cart_id: int
+    cart: Mapped[Cart]
+
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid4()))
     name = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password_hash = db.Column(db.String(200), nullable=False)
     addresses = db.relationship('Address', secondary=client_address, lazy="subquery")
+    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), unique=True)
+    cart = db.relationship("Cart", back_populates="client", uselist=False)
+
 
     __tablename__ = 'clients'
 
