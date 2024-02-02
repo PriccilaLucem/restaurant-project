@@ -16,8 +16,7 @@ class Client(db.Model):
     name: str
     email: str
     addresses: Mapped[List[Address]] = field(default_factory=list)
-    cart_id: int
-    cart: Mapped[Cart]
+    cart: Mapped[List[Cart]]= field(default_factory=list)
 
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid4()))
@@ -26,8 +25,8 @@ class Client(db.Model):
     password_hash = db.Column(db.String(200), nullable=False)
     addresses = db.relationship('Address', secondary=client_address, lazy="subquery")
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), unique=True)
-    cart = db.relationship("Cart", back_populates="client", uselist=False)
-
+    cart = db.relationship("Cart", uselist=False, foreign_keys=[cart_id], backref="cart_id")
+    
 
     __tablename__ = 'clients'
 

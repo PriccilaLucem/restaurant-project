@@ -3,6 +3,8 @@ from app.models.client_model import Client
 from sqlalchemy.exc import IntegrityError
 from app.controllers import is_adm, can_acess, is_logged
 from jwt.exceptions import InvalidSignatureError
+from app.models.cart_model import Cart
+
 
 def get_all_clients_controller():
     if is_adm(request):
@@ -30,11 +32,22 @@ def post_client_controller():
     try:
         valid_data = Client.validate_keys(**data)
         password_to_hash = data.pop('password')
+
         client = Client(**valid_data)
         client.password = password_to_hash
         current_app.db.session.add(client)
         current_app.db.session.commit()
-        return jsonify(client),200
+
+        cart = Cart(client_id=client.id)
+        current_app.db.session.add(cart)
+
+        cart.client_id = client.id
+        client.cart_id = cart.id
+        client.cart = cart
+
+        current_app.db.session.commit()
+
+        return jsonify(client), 200
     except IntegrityError as e:
         return {"error": "Email already taken"},409
 

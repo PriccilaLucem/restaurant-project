@@ -2,25 +2,20 @@ from dataclasses import dataclass
 from app.configs.database import db
 
 
-
-@dataclass 
+@dataclass
 class Menu(db.Model):
     id:int
     product_name:str
     product_description:str
     product_price:float
     
-    __tablename__ = 'menu'
-
-
     id = db.Column(db.Integer, primary_key = True)
     product_name = db.Column(db.String(40), nullable=False)
     product_description = db.Column(db.String(200), nullable=True)
     product_price = db.Column(db.Float, nullable=False)
     product_quantity = db.Column(db.Integer, default = 0, nullable=False)
-    carts = db.relationship("Cart", secondary="cart_menu_association", back_populates="items") 
-    
-    
+    cart_relationship = db.relationship("Cart_Menu", back_populates="menu")
+
     @staticmethod
     def validate_args(**kwargs):
         if type(kwargs['product_name']) != str:

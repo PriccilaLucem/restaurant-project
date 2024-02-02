@@ -14,7 +14,7 @@ def get_by_id_menu_controller(id):
     return jsonify({"error": "Not found"}), 404
 
 def post_menu_controller():
-    if not is_adm(request):
+    if is_adm(request):
         return {"error": "Unauthorized"},401
     data = request.json
 

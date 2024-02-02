@@ -69,12 +69,8 @@ def delete_address_from_client_controller(address_id):
         client = Client.query.get(client_from_token['id'])
         address = Address.query.get(address_id)
 
-        # Check if the address is associated with the client
         if address in client.addresses:
-            # Remove the address from the client's addresses
             client.addresses.remove(address)
-            
-            # Commit the changes to the database
             current_app.db.session.commit()
             
             return '', 204
