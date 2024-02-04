@@ -11,5 +11,6 @@ def init_app(app:Flask):
     from app.models.client_model import Client
     from app.models.cart_model import Cart
     from app.models.cart_menu_model import Cart_Menu
+    from app.models.credit_card_model import CreditCard
     migrate.init_app(app, app.db)
 

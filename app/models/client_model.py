@@ -26,7 +26,7 @@ class Client(db.Model):
     addresses = db.relationship('Address', secondary=client_address, lazy="subquery")
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), unique=True)
     cart = db.relationship("Cart", uselist=False, foreign_keys=[cart_id], backref="cart_id")
-    
+    credit_cards = db.relationship("CreditCard", backref='client', lazy=True)
 
     __tablename__ = 'clients'
 
