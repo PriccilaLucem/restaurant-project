@@ -17,3 +17,15 @@ class CreditCard(db.Model):
     client_id = db.Column(db.String(36), db.ForeignKey("clients.id"))
 
     __tablename__ = "credit_cards"
+
+
+    @staticmethod
+    def validate_args(**kwargs):
+        VALIDATED_ARGS = ['card_number', 'expiration_date', 'security_code']
+        if type(kwargs['card_number']) != str: 
+            raise TypeError
+        if type(kwargs['expiration_date']) != str: 
+            raise TypeError
+        if type(kwargs['security_code']) != str: 
+            raise TypeError
+        return {arg_name: arg_value for arg_name, arg_value in kwargs.items() if arg_name in VALIDATED_ARGS}

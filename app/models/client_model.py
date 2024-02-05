@@ -10,14 +10,16 @@ from app.models.cart_model import Cart
 from typing import List
 from sqlalchemy.orm import Mapped
 from app.exc.AddressAlreadyRegisteredError import AddressAlreadyRegisteredError
+from app.models.credit_card_model import CreditCard
+
 @dataclass
 class Client(db.Model):
     id: str
     name: str
     email: str
     addresses: Mapped[List[Address]] = field(default_factory=list)
-    cart: Mapped[List[Cart]]= field(default_factory=list)
-
+    cart: Mapped[List[Cart]] = field(default_factory=list)
+    credit_cards: Mapped[List[CreditCard]] = field(default_factory=list)
 
     id = db.Column(db.String(36), primary_key=True, default=str(uuid4()))
     name = db.Column(db.String(40), nullable=False)

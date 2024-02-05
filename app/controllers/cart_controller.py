@@ -5,7 +5,6 @@ from app.models.cart_model import Cart
 from app.models.menu_model import Menu
 from app.models.cart_menu_model import Cart_Menu
 from jwt.exceptions import InvalidSignatureError
-import ipdb
 
 def get_cart_controller():
     try:
