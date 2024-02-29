@@ -12,5 +12,6 @@ def init_app(app:Flask):
     from app.models.cart_model import Cart
     from app.models.cart_menu_model import Cart_Menu
     from app.models.credit_card_model import CreditCard
+    from app.models.order_model import Orders
     migrate.init_app(app, app.db)
 
